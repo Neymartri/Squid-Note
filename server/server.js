@@ -4,10 +4,18 @@ const express = require("express");
 
 const app = express();
 
-// retrieve event route
-app.get("/getEvents", (req, res) => {
-    console.log("get all events");
+// Get all events route
+app.get("/api/v1/events", (req, res) => {
+    res.status(200).json({
+        status: "success",
+        data: {
+            events: ["pyjamas party", "food festival", "night market"],
+        }, 
+    });
 });
+
+
+
 
 //create sever listener
 const port = process.env.PORT || 3005; 

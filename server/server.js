@@ -4,8 +4,15 @@ const express = require("express");
 
 const app = express();
 
+// middleware for route handling
+app.use((req, res, next) => {
+    console.log("middleware running")
+    next();
+});
+
 // Get all events route
 app.get("/api/v1/events", (req, res) => {
+    console.log("route handler running");
     res.status(200).json({
         status: "success",
         data: {
@@ -14,7 +21,15 @@ app.get("/api/v1/events", (req, res) => {
     });
 });
 
+//Get an Event
+app.get("/api/v1/events/:id", (req, res) => {
+    console.log(req.params);
+}); 
 
+//Create an Event
+app.post("/api/v1/events", (req, res) => {
+    console.log(req);
+});
 
 
 //create sever listener

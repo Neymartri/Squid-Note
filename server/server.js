@@ -12,15 +12,20 @@ const app = express();
 
 // Get all events route
 app.get("/api/v1/events", async (req, res) => {
-
-    const results = await db.query("select * from events")
+        try {
+    const results = await db.query("select * from events");
     console.log(results);
-    res.status(200).json({
+     res.status(200).json({
         status: "success",
+        results: results.rows.length,
         data: {
-            event: ["pyjamas party", "food festival", "night market"],
+            events: results.rows,
         }, 
     });
+        } catch (err) {
+            console.log(err);
+        }
+    
 });
 
 //Get an Event

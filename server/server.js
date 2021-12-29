@@ -54,7 +54,7 @@ app.post("/api/v1/events", async (req, res) => {
     try {
         const results = await db.query("INSERT INTO events (name, location, price_range) values ($1, $2, $3) returning *", 
         [req.body.name, req.body.location, req.body.price_range]);
-        console.log(results);
+        
         res.status(201).json({
             status: "success", 
             data: {
@@ -70,16 +70,27 @@ app.post("/api/v1/events", async (req, res) => {
 });
 
 // Update an Event
-app.put("/api/v1/events/:id", (req, res) => {
+app.put("/api/v1/events/:id", async (req, res) => {
+
+    try{
+        const results = await db.query("UPDATE events SET name = $1, location = $2, price_range = $3 where id = $4 returning *", 
+        [req.body.name, req.body.location, req.body.price_range, req.params.id]);
+
+        res.status(200).json({
+            status: "success", 
+            data: {
+                event: results.rows[0],
+            },
+        });
+
+    }catch (err) {
+        console.log(err)
+    }
+
     console.log(req.params.id);
     console.log(req.body)
 
-    res.status(200).json({
-        status: "success", 
-        data: {
-            event: "night market",
-        },
-    });
+    
 });
 
 // Delete an event 

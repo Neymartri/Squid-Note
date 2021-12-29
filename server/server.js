@@ -54,7 +54,7 @@ app.post("/api/v1/events", async (req, res) => {
     try {
         const results = await db.query("INSERT INTO events (name, location, price_range) values ($1, $2, $3) returning *", 
         [req.body.name, req.body.location, req.body.price_range]);
-        
+
         res.status(201).json({
             status: "success", 
             data: {
@@ -94,10 +94,20 @@ app.put("/api/v1/events/:id", async (req, res) => {
 });
 
 // Delete an event 
-app.delete("/api/v1/events/:id", (req, res) => {
-    res.status(204).json({
-        status: "success",
-    });
+app.delete("/api/v1/events/:id", async (req, res) => {
+
+    try{
+        const results = await db.query("DELETE FROM events where id = $1", 
+        [req.params.id]); 
+    
+        res.status(204).json({
+            status: "success",
+        });
+        
+    } catch (err) {
+        console.log(err)
+    }
+   
 })
 
 //create sever listener

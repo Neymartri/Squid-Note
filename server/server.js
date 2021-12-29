@@ -48,15 +48,25 @@ app.get("/api/v1/events/:id", async (req, res) => {
 }); 
 
 //Create an Event
-app.post("/api/v1/events", (req, res) => {
+app.post("/api/v1/events", async (req, res) => {
     console.log(req.body);
 
-    res.status(201).json({
-        status: "success", 
-        data: {
-            event: "night market",
-        },
-    });
+    try {
+        const results = await db.query("INSERT INTO events (name, location, price_range) values ($1, $2, $3) returning *", 
+        [req.body.name, req.body.location, req.body.price_range]);
+        console.log(results);
+        res.status(201).json({
+            status: "success", 
+            data: {
+                event: results.rows[0],
+            },
+        });
+
+    } catch (err) {
+        console.log(err)
+    }
+
+    
 });
 
 // Update an Event

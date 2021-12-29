@@ -10,7 +10,7 @@ const app = express();
 // middleware for route handling via morgan 
  app.use(express.json());
 
-// Get all events route
+// Get all events route via async
 app.get("/api/v1/events", async (req, res) => {
         try {
     const results = await db.query("select * from events");
@@ -28,16 +28,23 @@ app.get("/api/v1/events", async (req, res) => {
     
 });
 
-//Get an Event
-app.get("/api/v1/events/:id", (req, res) => {
-    console.log(req.params);
+//Get an Event via parameterized query
+app.get("/api/v1/events/:id", async (req, res) => {
+    console.log(req.params.id);
 
+    try{
+        const results = await db.query(
+            "select * from events where id = $1", [req.params.id]);
+      
     res.status(200).json({
         status: "success", 
         data: {
-            event: "night market"
+            event: results.rows[0],
         },
     });
+    } catch (err) {
+        console.log(err);
+    }
 }); 
 
 //Create an Event

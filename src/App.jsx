@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import EventDetailPage from './routes/EventDetailPage'; 
 import Home from './routes/Home';
 import UpdatePage from './routes/UpdatePage';
-
+import EventDetailPage from './routes/EventDetailPage'; 
 
 const App = () =>{ 
   return <Router>

@@ -14,14 +14,6 @@ const App = () =>{
         </Routes>
     </div>
     </Router>
-} 
-
-// function App() {
-//   return (
-//     <div className={styles.app}>
-//       <h1>Squid Note</h1>
-//     </div>
-//   );
-// }
+};
 
 export default App;

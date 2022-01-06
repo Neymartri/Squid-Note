@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
     //Create Top header 
 const Header = () => {
     return (

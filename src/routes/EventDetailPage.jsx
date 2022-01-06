@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const EventDetailPage = () => {
     return (
@@ -6,6 +6,6 @@ const EventDetailPage = () => {
             eventDetailPage
         </div>
     )
-}
+};
 
-export default EventDetailPage
+export default EventDetailPage;

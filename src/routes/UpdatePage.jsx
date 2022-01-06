@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const UpdatePage = () => {
     return (
@@ -6,6 +6,6 @@ const UpdatePage = () => {
             updatePage
         </div>
     )
-}
+};
 
-export default UpdatePage
+export default UpdatePage;

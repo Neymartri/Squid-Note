@@ -1,6 +1,7 @@
 // set environment variable and export express
 require("dotenv").config(); 
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
 //Import database from PostgreSQL
 const db = require('./db')
@@ -15,6 +16,7 @@ app.use(cors());
 app.get("/api/v1/events", async (req, res) => {
         try {
     const results = await db.query("select * from events");
+    
      res.status(200).json({
         status: "success",
         results: results.rows.length,

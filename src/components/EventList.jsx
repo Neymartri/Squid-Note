@@ -1,16 +1,22 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import EventFinder from '../apis/EventFinder';
+import { EventsContext } from '../context/EventsContext';
 
-const EventList = () => {
+const EventList = (props) => {
+  const {events, setEvents} = useContext(EventsContext)
 // Fetch data as soon as user components is on UI screen
-    useEffect(async() => {
-        try {
-            const response = await EventFinder.get("/")
-            console.log(response)
-        } catch(err) {
-
-        }
-    },[])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await EventFinder.get("/");
+                setEvents(response.data.data.events);
+            } catch(err) {
+                console.log(err)
+            }  
+        }   
+        
+        fetchData();
+    },[]);
 
     return (
         <div className="list-group">

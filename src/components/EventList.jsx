@@ -3,7 +3,7 @@ import React from 'react'
 const EventList = () => {
     return (
         <div className="list-group">
-            <table className="table table-hover table-white">
+            <table className="table table-hover table-dark">
                 <thead>
                     <tr className="bg-primary">
                         <th scope="col">Events</th>

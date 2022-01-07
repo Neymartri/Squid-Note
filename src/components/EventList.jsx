@@ -1,6 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react';
+import EventFinder from '../apis/EventFinder';
 
 const EventList = () => {
+// Fetch data as soon as user components is on UI screen
+    useEffect(async() => {
+        try {
+            const response = await EventFinder.get("/")
+            console.log(response)
+        } catch(err) {
+
+        }
+    },[])
+
     return (
         <div className="list-group">
             <table className="table table-hover table-dark">

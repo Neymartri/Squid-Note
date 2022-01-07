@@ -7,6 +7,7 @@ const db = require('./db')
 
 const app = express();
 
+app.use(cors());
 // middleware for route handling via morgan 
  app.use(express.json());
 
@@ -14,7 +15,6 @@ const app = express();
 app.get("/api/v1/events", async (req, res) => {
         try {
     const results = await db.query("select * from events");
-    console.log(results);
      res.status(200).json({
         status: "success",
         results: results.rows.length,

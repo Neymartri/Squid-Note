@@ -32,9 +32,9 @@ const EventList = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {events.map(event =>{
+                    {events && events.map(event =>{
                         return (
-                            <tr>
+                            <tr key = {event.id}>
                             <td>{event.name}</td>
                             <td>{event.location}</td>
                             <td>{"$".repeat(event.price_range)}</td>

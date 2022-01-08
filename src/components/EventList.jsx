@@ -16,7 +16,7 @@ const EventList = (props) => {
         }   
         
         fetchData();
-    },[]);
+    }, []);
 
     return (
         <div className="list-group">
@@ -32,7 +32,24 @@ const EventList = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {events.map(event =>{
+                        return (
+                            <tr>
+                            <td>{event.name}</td>
+                            <td>{event.location}</td>
+                            <td>{"$".repeat(event.price_range)}</td>
+                            <td>review</td>
+                            <td>
+                                 <button className="btn btn-warning">Update</button>
+                            </td>
+                            <td>
+                                 <button className="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                        );                
+                    })};
+
+                    {/* <tr>
                         <td>SouthBank Walk</td>
                         <td>SouthBank </td>
                         <td> $$ </td>
@@ -48,12 +65,11 @@ const EventList = (props) => {
                         <td>Rating</td>
                         <td><button className="btn btn-warning">Update</button></td>
                         <td><button className="btn btn-danger">Delete</button></td>
-                    </tr>
+                    </tr> */}
                 </tbody>
              </table>
-            
         </div>
-    )
-}
+    );
+};
 
-export default EventList
+export default EventList; 

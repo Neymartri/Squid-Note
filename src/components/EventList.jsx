@@ -17,6 +17,17 @@ const EventList = (props) => {
         
         fetchData();
     }, []);
+//Add function to delete an event via api
+     const handleDelete = async (id) => {
+        try{
+          const response = await EventFinder.delete(`/${id}`);
+          setEvents(events.filter(event => {
+              return event.id !== id
+          }));
+        } catch(err) {
+            console.log(err);
+        }
+     }
 
     return (
         <div className="list-group">
@@ -43,7 +54,7 @@ const EventList = (props) => {
                                  <button className="btn btn-warning">Update</button>
                             </td>
                             <td>
-                                 <button className="btn btn-danger">Delete</button>
+                                 <button onClick ={() => handleDelete(event.id)} className="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                         );                

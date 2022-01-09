@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import EventFinder from '../apis/EventFinder';
+import { EventsContext } from '../context/EventsContext';
 // Create Searchbars
 const AddEvent = () => {
+    //import the addEvent function from EventContext 
+        const {addEvents} = useContext(EventsContext);
     // Add control input for searchbars 
        const [name, setName] = useState("")
        const [location, setLocation] = useState("")
-       const [priceRange, setPriceRange] = useState("Price Range")
+       const [priceRange, setPriceRange] = useState("Price Range");
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
              const response = await EventFinder.post("/", {
-                name: name,
-                location: location,
+                name, 
+                location,
                 price_range: priceRange,
-            })
+            });
+            addEvents(response.data.data.event);
             console.log(response);
         } catch (err) {
 

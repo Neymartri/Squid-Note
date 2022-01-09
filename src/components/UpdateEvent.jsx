@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import EventFinder from '../apis/EventFinder';
 import { EventsContext } from '../context/EventsContext';
 
 const UpdateEvent = (props) => {
     const {id} = useParams();
+    // navigate user back to homepage after updating event info
+    let navigate = useNavigate();
     const { event } = useContext(EventsContext);
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
@@ -21,6 +23,17 @@ const UpdateEvent = (props) => {
 
         fetchData()
     }, []);
+
+    //handle submit function to update event via api
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const updateEvent = await EventFinder.put(`/${id}`, {
+            name,
+            location,
+            price_range: priceRange,
+        });
+        navigate("/");
+    };
 
     return (
         <div>
@@ -48,7 +61,7 @@ const UpdateEvent = (props) => {
                             <option value="5">$$$$$</option>
                         </select>
                      </div>
-                     <button className="btn btn-primary">Submit</button>
+                     <button type = "submit" onClick={handleSubmit} className="btn btn-primary">Submit</button>
             </form>
         </div>
     );

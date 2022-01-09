@@ -1,9 +1,12 @@
 import React, {useEffect, useContext} from 'react';
 import EventFinder from '../apis/EventFinder';
 import { EventsContext } from '../context/EventsContext';
+import { useNavigate } from 'react-router-dom'; 
 
 const EventList = (props) => {
   const {events, setEvents} = useContext(EventsContext)
+//  Add updatepage redirect from update button via useNavigate 
+  let navigate = useNavigate()
 // Fetch data as soon as user components is on UI screen
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +30,12 @@ const EventList = (props) => {
         } catch(err) {
             console.log(err);
         }
-     }
+     };
+     
+     //update function to redirect to updatePage
+     const handleUpdate = (id) => {
+         navigate(`/events/${id}/update`);
+     };
 
     return (
         <div className="list-group">
@@ -51,7 +59,7 @@ const EventList = (props) => {
                             <td>{"$".repeat(event.price_range)}</td>
                             <td>review</td>
                             <td>
-                                 <button className="btn btn-warning">Update</button>
+                                 <button onClick={()=> handleUpdate(event.id)} className="btn btn-warning">Update</button>
                             </td>
                             <td>
                                  <button onClick ={() => handleDelete(event.id)} className="btn btn-danger">Delete</button>

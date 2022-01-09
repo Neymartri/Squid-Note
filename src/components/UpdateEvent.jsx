@@ -1,11 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router';
+import EventFinder from '../apis/EventFinder';
+import { EventsContext } from '../context/EventsContext';
 
 const UpdateEvent = (props) => {
-    const {id} = useParams()
+    const {id} = useParams();
+    const { event } = useContext(EventsContext);
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [priceRange, setPriceRange] = useState("");
+
+    useEffect(() => {
+        const fetchData = async() => {
+            const response = await EventFinder.get(`/${id}`)
+            console.log(response.data.data) 
+            setName(response.data.data.event.name)
+            setLocation(response.data.data.event.location)
+            setPriceRange(response.data.data.event.price_range)
+        };
+
+        fetchData()
+    }, []);
 
     return (
         <div>

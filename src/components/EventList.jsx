@@ -21,7 +21,8 @@ const EventList = (props) => {
         fetchData();
     }, []);
 //Add function to delete an event via api
-     const handleDelete = async (id) => {
+     const handleDelete = async (e, id) => {
+         e.stopPropagation();
         try{
           const response = await EventFinder.delete(`/${id}`);
           setEvents(events.filter(event => {
@@ -31,11 +32,16 @@ const EventList = (props) => {
             console.log(err);
         }
      };
-     
+
      //update function to redirect to updatePage
-     const handleUpdate = (id) => {
+     const handleUpdate = (e, id) => {
+        e.stopPropagation();
          navigate(`/events/${id}/update`);
      };
+
+     const handleEventSelect = (id) => {
+         navigate(`/events/${id}`)
+     }
 
     return (
         <div className="list-group">
@@ -53,16 +59,16 @@ const EventList = (props) => {
                 <tbody>
                     {events && events.map(event =>{
                         return (
-                            <tr key = {event.id}>
+                            <tr onClick={() => handleEventSelect(event.id)} key= {event.id}>
                             <td>{event.name}</td>
                             <td>{event.location}</td>
                             <td>{"$".repeat(event.price_range)}</td>
                             <td>review</td>
                             <td>
-                                 <button onClick={()=> handleUpdate(event.id)} className="btn btn-warning">Update</button>
+                                 <button onClick={(e)=> handleUpdate(e, event.id)} className="btn btn-warning">Update</button>
                             </td>
                             <td>
-                                 <button onClick ={() => handleDelete(event.id)} className="btn btn-danger">Delete</button>
+                                 <button onClick ={(e) => handleDelete(e, event.id)} className="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                         );                

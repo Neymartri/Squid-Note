@@ -10,3 +10,11 @@ VALUES(1, 'Southbank', 'Brisbane', 2);
 
 
 ALTER TABLE events ADD COLUMN featured boolean; 
+
+CREATE TABLE reviews (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    event_id BIGINT NOT NULL REFERENCES events(id),
+    name VARCHAR(50) NOT NULL, 
+    review TEXT NOT NULL,
+    rating INT NOT NULL check(rating >=1 and rating <= 5) NOT NULL
+);

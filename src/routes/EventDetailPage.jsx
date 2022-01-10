@@ -7,6 +7,7 @@ const EventDetailPage = () => {
     const {id} = useParams();
     const {selectedEvent, setSelectedEvent} = useContext(EventsContext)
 
+    //fetch a particular event name and render it on eventDetailPage via api
     useEffect(() => {
         const fetchData = async () => {
 
@@ -20,6 +21,8 @@ const EventDetailPage = () => {
 
         fetchData()
     }, []);
+
+    //only render event name when event name is selected
     return (
         <div>
             {selectedEvent && selectedEvent.name}

@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import EventFinder from '../apis/EventFinder';
 
 // Create a user input for reviews of the selected event
 const AddReview = () => {
     const { id } = useParams(); 
+    const location = useLocation()
+    const navigate = useNavigate()
     const [name, setName] = useState("")
     const [reviewText, setReviewText] = useState("")
     const [rating, setRating] = useState("Rating")
 
     const handleSubmitReview = async (e) => {
         e.preventDefault()
-     const response = await EventFinder.post(`/${id}/addReview`, {
-            name,
-            review: reviewText,
-            rating,
-        });
-
-        console.log(response)
+        try {
+            const response = await EventFinder.post(`/${id}/addReview`, {
+                name,
+                review: reviewText,
+                rating,
+            });
+            navigate("/");
+            navigate(location.pathname);
+        } catch (err) {
+            console.log(err)
+        }
     };
     return (
         <div className="mb-2">

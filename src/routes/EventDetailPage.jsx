@@ -16,7 +16,8 @@ const EventDetailPage = () => {
 
             try {
             const response = await EventFinder.get(`/${id}`);
-            setSelectedEvent(response.data.data.event);
+
+            setSelectedEvent(response.data.data);
             } catch (err) {
                 console.log(err)
             }
@@ -30,8 +31,9 @@ const EventDetailPage = () => {
         <div>
             {selectedEvent && (
                 <>
+                {/* Reviews has access to events and reviews   */}
                 <div className="mt-3">
-                    <Reviews/>
+                    <Reviews reviews={selectedEvent.reviews}/>
                 </div>
                 <AddReview/>
                 </>

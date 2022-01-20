@@ -16,7 +16,7 @@ app.use(cors());
 app.get("/api/v1/events", async (req, res) => {
         try {
     const results = await db.query("select * from events");
-    
+
      res.status(200).json({
         status: "success",
         results: results.rows.length,
@@ -30,18 +30,24 @@ app.get("/api/v1/events", async (req, res) => {
     
 });
 
-//Get an Event via parameterized query
+//Get an Event via parameterized query - Route handler to handle both events and reviews
 app.get("/api/v1/events/:id", async (req, res) => {
     console.log(req.params.id);
 
     try{
-        const results = await db.query(
-            "select * from events where id = $1", [req.params.id]);
+        const event = await db.query(
+            "select * from events where id = $1", [req.params.id,
+            ]);
+//Create an api call to retrieve data for the reiews 
+        const reviews = await db.query(
+            "select * from reviews where event_id = $1", [req.params.id,
+             ]);
       
     res.status(200).json({
         status: "success", 
         data: {
-            event: results.rows[0],
+            event: event.rows[0],
+            reviews: reviews.rows
         },
     });
     } catch (err) {

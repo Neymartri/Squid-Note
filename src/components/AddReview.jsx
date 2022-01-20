@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import EventFinder from '../apis/EventFinder';
 
 // Create a user input for reviews of the selected event
 const AddReview = () => {
+    const { id } = useParams(); 
     const [name, setName] = useState("")
     const [reviewText, setReviewText] = useState("")
     const [rating, setRating] = useState("Rating")
 
+    const handleSubmitReview = async (e) => {
+        e.preventDefault()
+     const response = await EventFinder.post(`/${id}/addReview`, {
+            name,
+            review: reviewText,
+            rating,
+        });
+
+        console.log(response)
+    };
     return (
         <div className="mb-2">
             <form action = "">
@@ -30,7 +43,7 @@ const AddReview = () => {
                     <label htmlFor="Review">Review</label>
                     <textarea value ={reviewText} onChange={e => setReviewText(e.target.value)}id="Review" className="form-control"></textarea>
                 </div>
-                <button className="btn btn-primary">Submit </button>
+                <button type= "submit" onClick={handleSubmitReview} className="btn btn-primary">Submit </button>
             </form>
         </div>
     );

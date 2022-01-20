@@ -31,6 +31,7 @@ const EventDetailPage = () => {
         <div>
             {selectedEvent && (
                 <>
+                <h1 className ="text-center display-1 text-capitalize">{selectedEvent.event.name}</h1>
                 {/* Reviews has access to events and reviews   */}
                 <div className="mt-3">
                     <Reviews reviews={selectedEvent.reviews}/>

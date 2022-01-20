@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import EventFinder from '../apis/EventFinder';
+import AddReview from '../components/AddReview';
 import Reviews from '../components/Reviews';
 import StarRating from '../components/StarRating';
 import { EventsContext } from '../context/EventsContext';
@@ -32,6 +33,7 @@ const EventDetailPage = () => {
                 <div className="mt-3">
                     <Reviews/>
                 </div>
+                <AddReview/>
                 </>
             )}
         </div>

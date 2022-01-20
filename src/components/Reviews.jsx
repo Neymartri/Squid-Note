@@ -33,11 +33,6 @@ const Reviews = () => {
                   <p className="card-text">This event is a whole vibe</p>
               </div>
           </div> 
-          
-
-           
-
-
         </div>    
     );
 };

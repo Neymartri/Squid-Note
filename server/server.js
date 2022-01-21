@@ -15,13 +15,17 @@ app.use(cors());
 // Get all events route via async
 app.get("/api/v1/events", async (req, res) => {
         try {
-    const results = await db.query("select * from events");
+    const results = await db.query("select * from events;");
+// Get api call of all events, review counts and avr ratings
+    const eventRatingData = await db.query (
+        "select * from events left join (select event_id, COUNT(*), TRUNC(AVG(rating),1) as average_rating from reviews group by event_id) reviews on events.id = reviews.event_id;"
+    );
 
      res.status(200).json({
         status: "success",
-        results: results.rows.length,
+        results: eventRatingData.rows.length,
         data: {
-            events: results.rows,
+            events: eventRatingData.rows,
         }, 
     });
         } catch (err) {

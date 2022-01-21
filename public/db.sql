@@ -18,3 +18,5 @@ CREATE TABLE reviews (
     review TEXT NOT NULL,
     rating INT NOT NULL check(rating >=1 and rating <= 5) NOT NULL
 );
+
+select * from events left join (select event_id, COUNT(*), TRUNC(AVG(rating),1) as average_rating from reviews group by event_id) reviews on events.id = reviews.event_id;

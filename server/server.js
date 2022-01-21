@@ -40,7 +40,8 @@ app.get("/api/v1/events/:id", async (req, res) => {
 
     try{
         const event = await db.query(
-            "select * from events where id = $1", [req.params.id,
+            "select * from events left join (select event_id, COUNT(*), TRUNC(AVG(rating),1) as average_rating from reviews group by event_id) reviews on events.id = reviews.event_id where id =$1;", 
+            [req.params.id,
             ]);
 //Create an api call to retrieve data for the reiews 
         const reviews = await db.query(

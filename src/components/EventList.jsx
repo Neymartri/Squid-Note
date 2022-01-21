@@ -2,6 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import EventFinder from '../apis/EventFinder';
 import { EventsContext } from '../context/EventsContext';
 import { useNavigate } from 'react-router-dom'; 
+import StarRating from './StarRating';
 
 const EventList = (props) => {
   const {events, setEvents} = useContext(EventsContext)
@@ -42,6 +43,15 @@ const EventList = (props) => {
      const handleEventSelect = (id) => {
          navigate(`/events/${id}`)
      }
+     //Render out the Avr star rating of a selected event 
+     const renderRating = (event) => {
+         return(
+         <>
+         <StarRating rating={event.id} />
+         <span className="text-warning ml-1">{event.count}</span>
+         </>
+         );
+     };
 
     return (
         <div className="list-group">
@@ -60,10 +70,10 @@ const EventList = (props) => {
                     {events && events.map(event =>{
                         return (
                             <tr onClick={() => handleEventSelect(event.id)} key= {event.id}>
-                            <td>{event.name}</td>
+                            <td className="text-capitalize">{event.name}</td>
                             <td>{event.location}</td>
                             <td>{"$".repeat(event.price_range)}</td>
-                            <td>review</td>
+                            <td>{renderRating(event)}</td>
                             <td>
                                  <button onClick={(e)=> handleUpdate(e, event.id)} className="btn btn-warning">Update</button>
                             </td>

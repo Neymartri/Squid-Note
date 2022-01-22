@@ -32,7 +32,14 @@ const EventDetailPage = () => {
             {selectedEvent && (
                 <>
                 <h1 className ="text-center display-1 text-capitalize">{selectedEvent.event.name}</h1>
-                {/* Reviews has access to events and reviews   */}
+                {/* Reviews has access to events and reviews */}
+                <div className="text-center">
+                {/* Render out the avr star rating in selected event via review counts in db */}
+                    <StarRating rating={selectedEvent.event.average_rating} />
+                    <span className="text-warning ml-1">
+                        {selectedEvent.event.count ? `(${selectedEvent.event.count})` : "(0)"}
+                    </span>
+                </div>
                 <div className="mt-3">
                     <Reviews reviews={selectedEvent.reviews}/>
                 </div>
@@ -40,7 +47,7 @@ const EventDetailPage = () => {
                 </>
             )}
         </div>
-    )
+    );
 };
 
 export default EventDetailPage;

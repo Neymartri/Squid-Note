@@ -45,6 +45,9 @@ const EventList = (props) => {
      }
      //Render out the Avr star rating of a selected event 
      const renderRating = (event) => {
+         if(!event.count) {
+             return <span className="text-warning">0 reviews</span>
+         }
          return(
          <>
          <StarRating rating={event.id} />
@@ -71,7 +74,7 @@ const EventList = (props) => {
                         return (
                             <tr onClick={() => handleEventSelect(event.id)} key= {event.id}>
                             <td className="text-capitalize">{event.name}</td>
-                            <td>{event.location}</td>
+                            <td className="text-capitalize">{event.location}</td>
                             <td>{"$".repeat(event.price_range)}</td>
                             <td>{renderRating(event)}</td>
                             <td>
